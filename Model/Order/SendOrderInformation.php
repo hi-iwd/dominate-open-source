@@ -51,14 +51,12 @@ class SendOrderInformation
     public function __construct(
         Curl $curl,
         StoreManagerInterface $storeManager,
-        SessionManager $sessionManager,
-
+        SessionManager $sessionManager
     )
     {
         $this->curl = $curl;
         $this->_storeManager = $storeManager;
         $this->sessionManager = $sessionManager;
-
     }
 
     /**
