@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Backend/etc/system_file.xsd">
+    <system>
+        <tab id="iwd" translate="label" sortOrder="999998" class="iwd-extensions-tab">
+            <label>IWD Agency</label>
+        </tab>
+        <section id="iwd_opc" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Checkout Suite</label>
+            <tab>iwd</tab>
+            <resource>IWD_Opc::system_config</resource>
+            <group id="general" translate="label" type="text"
+                   sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="version" translate="label" type="text"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Version</label>
+                    <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Version</frontend_model>
+                </field>
+                <field id="documentation" translate="label" type="text"
+                       sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Documentation</label>
+                    <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Documentation</frontend_model>
+                </field>
+                <field id="enable" translate="label" type="select"
+                       sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="checkout_suite_design" translate="label" type="select"
+                       sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Checkout Suite Design?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Disabling IWD Checkout Suite design will enable the standard Magento checkout design. All features of Checkout Suite will still continue to function regardless of which checkout design you use.]]></comment>
+                </field>
+                <field id="license_email" translate="label comment" type="text"
+                       sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Purchased Email</label>
+                    <comment><![CDATA[To activate this product, please enter the email address that was used to purchase this product from <a href="https://www.iwdagency.com/extensions/" target="_blank">IWD Agency</a>]]></comment>
+                    <validate>required-entry validate-email</validate>
+                </field>
+            </group>
+            <group id="extended" translate="label" type="text"
+                   sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Configurations</label>
+                <field id="title" translate="label" type="text"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Meta Title</label>
+                </field>
+                <field id="use_iwd_checkout_experience" translate="label comment" type="select"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>IWD Login/Account Creation Checkout Experience</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <comment><![CDATA[If enabled, users will be able to checkout without logging in.  Existing customers will have the order associated with their account, while guests will have an account created for them. <br><br> If disabled, checkout will follow default Magento guest checkout user flow.]]></comment>
+                </field>
+                <field id="show_discount" translate="label" type="select"
+                       sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show discount form?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_comment" translate="label" type="select"
+                       sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show comment field?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_gift_message" translate="label" type="select"
+                       sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show gift message form?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This configuration depends on the General Gift Options (Sales -> Sales -> Gift Options) and a Product's Option (Product -> Gift Options).<br> If you enabled this option and Gift Messages block doesn't appear on the checkout, be sure to check General and Product Gift Options.]]></comment>
+                </field>
+                <field id="show_subscribe" translate="label" type="select"
+                       sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Subscribe to Newsletter?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="subscribe_by_default" translate="label" type="select"
+                       sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Check Subscribe to Newsletter by Default?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default_shipping_method" translate="label comment" type="select"
+                       sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Method</label>
+                    <source_model>IWD\Opc\Model\Config\Source\Shipping</source_model>
+                </field>
+                <field id="default_payment_method" translate="label" type="select"
+                       sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Payment Method</label>
+                    <source_model>IWD\Opc\Model\Config\Source\Payment</source_model>
+                </field>
+                <field id="payment_title_type" translate="label" type="select"
+                       sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment method title display type</label>
+                    <source_model>IWD\Opc\Model\Config\Source\PaymentTitle</source_model>
+                </field>
+                <field id="reload_shipping_methods_on_discount" translate="label comment" type="select"
+                       sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reload shipping methods during applying/removing discount?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If yes, then shipping methods will be reloaded when customer will applies/removes discount on checkout page. You should enable it if you offer discounts which make shipping free.]]></comment>
+                </field>
+                <field id="show_all_ship_methods" translate="label" type="select"
+                       sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show All shipping methods in one select-box?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="gm_autocomplete" translate="label" type="select"
+                       sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Google Maps Autocomplete</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="gm_apikey" translate="label comment" type="text"
+                       sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Maps API Key</label>
+                    <comment><![CDATA[ For more information <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">see</a>]]></comment>
+                    <depends>
+                        <field id="gm_autocomplete">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <group id="restrict_payment" translate="label" type="text"
+                   sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Restrict Payment Methods by Group</label>
+                <field id="enable" translate="label" type="select"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="methods" translate="label" type="select"
+                       sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict Payments</label>
+                    <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\RestrictPayment</frontend_model>
+                    <backend_model>IWD\Opc\Model\Config\Backend\RestrictPayment</backend_model>
+                </field>
+            </group>
+            <group id="ga_ab_test" translate="label" type="text"
+                   sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Analytics Web Experiments</label>
+                <field id="enable" translate="label comment" type="select"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[To use Google Analytics Web Experiments you should enable and configure Google Analytics for your website in "System/Sales/Google API". Also, you should configure 2 variants(pages) of experiment: "Native checkout page" - original page(with url "@your_store_url@/checkout") and "IWD Checkout Page"(with url "@your_store_url@/onepage").]]></comment>
+                </field>
+                <field id="code" translate="label comment" type="textarea"
+                       sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Analytics Experiment code</label>
+                    <comment><![CDATA[You will get this code after experiment registered in Google Analytics account]]></comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
