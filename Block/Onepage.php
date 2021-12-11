@@ -3,7 +3,7 @@
 namespace IWD\Opc\Block;
 
 use Magento\Checkout\Block\Onepage as CheckoutOnepage;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Checkout\Model\CompositeConfigProvider;

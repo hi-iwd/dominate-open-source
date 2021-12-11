@@ -33,12 +33,6 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Disabling IWD Checkout Suite design will enable the standard Magento checkout design. All features of Checkout Suite will still continue to function regardless of which checkout design you use.]]></comment>
                 </field>
-                <field id="license_email" translate="label comment" type="text"
-                       sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Purchased Email</label>
-                    <comment><![CDATA[To activate this product, please enter the email address that was used to purchase this product from <a href="https://www.iwdagency.com/extensions/" target="_blank">IWD Agency</a>]]></comment>
-                    <validate>required-entry validate-email</validate>
-                </field>
             </group>
             <group id="extended" translate="label" type="text"
                    sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">

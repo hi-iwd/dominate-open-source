@@ -6,13 +6,13 @@ use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\App\Action\Action as MagentoAction;
-use Magento\Customer\Model\Session\Proxy as CustomerSession;
+use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Checkout\Model\Type\Onepage;
 use IWD\Opc\Helper\Data as OpcHelper;
 use Magento\Checkout\Helper\Data as CheckoutHelper;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\View\Result\PageFactory;
 
 abstract class Action extends MagentoAction

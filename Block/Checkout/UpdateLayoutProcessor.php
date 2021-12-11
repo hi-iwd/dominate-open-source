@@ -6,7 +6,7 @@ use Magento\Checkout\Block\Checkout\LayoutProcessorInterface;
 use Magento\Customer\Model\AttributeMetadataDataProvider;
 use Magento\Ui\Component\Form\AttributeMapper;
 use Magento\Checkout\Block\Checkout\AttributeMerger;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use IWD\Opc\Helper\Data as OpcHelper;
 
 /**

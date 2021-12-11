@@ -5,12 +5,12 @@ namespace IWD\Opc\Block\Onepage;
 use Magento\Checkout\Block\Onepage\Success as CheckoutSuccess;
 use IWD\Opc\Helper\Data as OpcHelper;
 use Magento\Framework\View\Element\Template\Context;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Sales\Model\Order\Config;
 use Magento\Framework\App\Http\Context as HttpContext;
 use Magento\Customer\Model\Registration;
 use Magento\Customer\Api\AccountManagementInterface;
-use Magento\Customer\Model\Session\Proxy as CustomerSession;
+use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Sales\Model\Order\Address\Validator;
 use Magento\Sales\Api\OrderRepositoryInterface;
 

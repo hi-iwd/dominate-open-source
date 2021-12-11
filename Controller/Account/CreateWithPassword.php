@@ -10,7 +10,7 @@ use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Quote\Model\Quote\AddressFactory as QuoteAddressFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Encryption\EncryptorInterface as Encryptor;
-use Magento\Customer\Model\Session\Proxy as CustomerSession;
+use Magento\Customer\Model\Session as CustomerSession;
 
 /**
  * Class CreateWithPassword

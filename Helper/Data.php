@@ -5,16 +5,16 @@ namespace IWD\Opc\Helper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\HTTP\Adapter\CurlFactory;
-use Magento\Framework\Message\Session\Proxy as Session;
+use Magento\Framework\Message\Session as Session;
 use Magento\Framework\App\Config\ConfigResource\ConfigInterface;
-use Magento\Customer\Model\Session\Proxy as CustomerSession;
+use Magento\Customer\Model\Session as CustomerSession;
 use IWD\Opc\Model\FlagFactory;
 use Magento\Framework\Json\Helper\Data as JsonHelper;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\UrlInterface;
 use \Magento\Framework\Mail\Template\TransportBuilder;
 
-final class Data extends AbstractHelper
+class Data extends AbstractHelper
 {
 
     const XML_PATH_ENABLE = 'iwd_opc/general/enable';

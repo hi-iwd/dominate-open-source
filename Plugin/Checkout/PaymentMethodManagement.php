@@ -3,7 +3,7 @@
 namespace IWD\Opc\Plugin\Checkout;
 
 use IWD\Opc\Helper\Data as OpcHelper;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Quote\Api\Data\PaymentInterface;
 
 class PaymentMethodManagement

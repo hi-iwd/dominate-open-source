@@ -3,7 +3,7 @@
 namespace IWD\Opc\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Sales\Model\Order\Status\HistoryFactory;
 use Magento\Framework\Event\ObserverInterface;
 use IWD\Opc\Helper\Data as OpcHelper;
@@ -15,7 +15,7 @@ use Magento\Sales\Model\Order;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Encryption\EncryptorInterface as Encryptor;
 use \Magento\Downloadable\Model\Link\PurchasedFactory as PurchasedFactory;
-use Magento\Customer\Model\Session\Proxy as CustomerSession;
+use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Downloadable\Observer\SaveDownloadableOrderItemObserver;
 
 /**

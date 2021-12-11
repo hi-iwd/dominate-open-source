@@ -4,7 +4,7 @@ namespace IWD\Opc\Model;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
 use IWD\Opc\Helper\Data as OpcHelper;
-use Magento\Checkout\Model\Session\Proxy as CheckoutSession;
+use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Asset\Repository;
 

@@ -4,7 +4,7 @@ namespace IWD\Opc\Plugin;
 
 use IWD\Opc\Helper\Data as OpcHelper;
 use Magento\Framework\ObjectManagerInterface;
-use Magento\Checkout\Model\Session\Proxy;
+use Magento\Checkout\Model\Session;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 
@@ -19,7 +19,7 @@ class GiftCardAccount
     public function __construct(
         OpcHelper $opcHelper,
         ObjectManagerInterface $objectManager,
-        Proxy $checkoutSession,
+        Session $checkoutSession,
         StoreManagerInterface $storeManager,
         CartRepositoryInterface $quoteRepository
     ) {
