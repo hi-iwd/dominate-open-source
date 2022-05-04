@@ -27,12 +27,6 @@
                     <label>Enable Module?</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="checkout_suite_design" translate="label" type="select"
-                       sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enable Checkout Suite Design?</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[Disabling IWD Checkout Suite design will enable the standard Magento checkout design. All features of Checkout Suite will still continue to function regardless of which checkout design you use.]]></comment>
-                </field>
             </group>
             <group id="extended" translate="label" type="text"
                    sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -57,20 +51,9 @@
                     <label>Show comment field?</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="show_gift_message" translate="label" type="select"
-                       sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show gift message form?</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[This configuration depends on the General Gift Options (Sales -> Sales -> Gift Options) and a Product's Option (Product -> Gift Options).<br> If you enabled this option and Gift Messages block doesn't appear on the checkout, be sure to check General and Product Gift Options.]]></comment>
-                </field>
                 <field id="show_subscribe" translate="label" type="select"
                        sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show Subscribe to Newsletter?</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                </field>
-                <field id="subscribe_by_default" translate="label" type="select"
-                       sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Check Subscribe to Newsletter by Default?</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="default_shipping_method" translate="label comment" type="select"
@@ -82,22 +65,6 @@
                        sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Default Payment Method</label>
                     <source_model>IWD\Opc\Model\Config\Source\Payment</source_model>
-                </field>
-                <field id="payment_title_type" translate="label" type="select"
-                       sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Payment method title display type</label>
-                    <source_model>IWD\Opc\Model\Config\Source\PaymentTitle</source_model>
-                </field>
-                <field id="reload_shipping_methods_on_discount" translate="label comment" type="select"
-                       sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Reload shipping methods during applying/removing discount?</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment><![CDATA[If yes, then shipping methods will be reloaded when customer will applies/removes discount on checkout page. You should enable it if you offer discounts which make shipping free.]]></comment>
-                </field>
-                <field id="show_all_ship_methods" translate="label" type="select"
-                       sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Show All shipping methods in one select-box?</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="gm_autocomplete" translate="label" type="select"
                        sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -146,6 +113,107 @@
                         <field id="enable">1</field>
                     </depends>
                 </field>
+            </group>
+            <group id="design" translate="label" type="text"
+                   sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customize Checkout Design</label>
+                <group id="layout" translate="label" type="text"
+                       sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Layouts</label>
+                    <field id="desktop" translate="label" type="select"
+                           sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Design for Desktop Resolution</label>
+                        <source_model>IWD\Opc\Block\Adminhtml\System\Config\Layout\Resolution\Desktop</source_model>
+                    </field>
+                    <field id="mobile" translate="label" type="select"
+                           sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Design for Mobile Resolution</label>
+                        <source_model>IWD\Opc\Block\Adminhtml\System\Config\Layout\Resolution\Mobile</source_model>
+                    </field>
+                    <field id="tablet" translate="label" type="select"
+                           sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Design for Tablet Resolution</label>
+                        <source_model>IWD\Opc\Block\Adminhtml\System\Config\Layout\Resolution\Tablet</source_model>
+                    </field>
+                    <field id="address_type_order" translate="label" type="select"
+                           sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Address Forms Order</label>
+                        <source_model>IWD\Opc\Block\Adminhtml\System\Config\Layout\Address\FormOrder</source_model>
+                    </field>
+                </group>
+                <group id="style" translate="label" type="text"
+                       sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Font &amp; Colors</label>
+                    <field id="font" translate="label" type="select"
+                           sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Font Family</label>
+                        <source_model>IWD\Opc\Block\Adminhtml\System\Config\Style\Font</source_model>
+                    </field>
+                    <field id="page_background" translate="label" type="text"
+                           sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Page Background</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to the Checkout Page Background.]]></comment>
+                    </field>
+                    <field id="sidebar_background" translate="label" type="text"
+                           sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sidebar Background</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to the Checkout Right Sidebar Background.]]></comment>
+                    </field>
+                    <field id="heading_text_color" translate="label" type="text"
+                           sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Heading Text Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Headings and Titles.]]></comment>
+                    </field>
+                    <field id="body_text_color" translate="label" type="text"
+                           sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Body Text Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to any Body or Informational Text.]]></comment>
+                    </field>
+                    <field id="link_color" translate="label" type="text"
+                           sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Link Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to all Links on the Checkout Page.]]></comment>
+                    </field>
+                    <field id="input_highlight_color" translate="label" type="text"
+                           sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Highlight Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Highlight Chosen Options and Focus Input Fields.]]></comment>
+                    </field>
+                    <field id="primary_btn_background" translate="label" type="text"
+                           sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Primary Button Background</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Primary Action Buttons Background.<br/>
+                                    Ex: Continue To Delivery Method, Continue To Payment, Place Order.]]></comment>
+                    </field>
+                    <field id="primary_btn_text_color" translate="label" type="text"
+                           sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Primary Button Text Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Primary Action Buttons Text.<br/>
+                                    Ex: Continue To Delivery Method, Continue To Payment, Place Order.]]></comment>
+                    </field>
+                    <field id="secondary_btn_background" translate="label" type="text"
+                           sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Secondary Button Background</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Secondary Action Buttons Background.<br/>
+                                    Ex: Log In, Reset, Apply a Promo Code.]]></comment>
+                    </field>
+                    <field id="secondary_btn_text_color" translate="label" type="text"
+                           sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Secondary Button Text Color</label>
+                        <frontend_model>IWD\Opc\Block\Adminhtml\System\Config\Style\ColorPicker</frontend_model>
+                        <comment><![CDATA[This color will be applied to Secondary Action Buttons Text.<br/>
+                                    Ex: Log In, Reset, Apply a Promo Code.]]></comment>
+                    </field>
+                </group>
             </group>
         </section>
     </system>

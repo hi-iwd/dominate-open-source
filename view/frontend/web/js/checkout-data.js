@@ -33,6 +33,12 @@ define([
                 'newCustomerBillingAddress': null
             };
             saveData(data);
+        } else {
+            if(typeof window.checkoutData == 'undefined'){
+                window.checkoutData = {};
+            }
+            window.checkoutData.billingAddressFormData = data.billingAddressFormData;
+            window.checkoutData.shippingAddressFromData = data.shippingAddressFromData;
         }
 
         return data;

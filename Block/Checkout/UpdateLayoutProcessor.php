@@ -103,11 +103,7 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                 $this->updatePaymentButtons();
                 $this->updateTotals();
                 $this->disableAutocomplete();
-            } else {
-                $this->updateStandartOnePage();
-                $this->updateStandartShipping();
-                $this->updateStandartPayment();
-                $this->updateStandartTotals();
+                $this->updateSaasCheckout();
             }
         }
 
@@ -355,6 +351,8 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
     public function getReplacedUiTemplate($template)
     {
         $arrTemplates = [
+            'ui/form/field' => 'IWD_Opc/form/field',
+            'ui/form/element/input' => 'IWD_Opc/form/element/input',
             'ui/form/element/select' => 'IWD_Opc/form/element/select',
             'ui/form/element/textarea' => 'IWD_Opc/form/element/textarea',
             'ui/form/element/multiselect' => 'IWD_Opc/form/element/multiselect',
@@ -383,6 +381,109 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                         'shippingAddress' => [
                                             'component' => 'IWD_Opc/js/view/shipping',
                                             'children' => [
+                                                'shipping-address-fieldset' => [
+                                                    'children' => [
+                                                        'firstname' => [
+                                                            'label' => new \Magento\Framework\Phrase('First Name *'),
+                                                            'sortOrder' => 10,
+                                                            'placeholder' => false,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left'
+                                                            ]
+                                                        ],
+                                                        'lastname' => [
+                                                            'label' => new \Magento\Framework\Phrase('Last Name *'),
+                                                            'sortOrder' => 20,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-right'
+                                                            ]
+                                                        ],
+                                                        'street' => [
+                                                            'sortOrder' => 30,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/group/group',
+                                                            ],
+                                                            'children' => [
+                                                                '0' => [
+                                                                    'label' => new \Magento\Framework\Phrase('Street Address *'),
+                                                                    'placeholder' => false,
+                                                                    'config' => [
+                                                                        'template' => 'IWD_Opc/form/field',
+                                                                    ]
+                                                                ],
+                                                                '1' => [
+                                                                    'label' => new \Magento\Framework\Phrase('Apartment / Suite / Building'),
+                                                                    'placeholder' => false,
+                                                                    'config' => [
+                                                                        'template' => 'IWD_Opc/form/field',
+                                                                        'validation' => [
+                                                                            'required-entry' => false
+                                                                        ],
+                                                                    ]
+                                                                ],
+                                                            ],
+
+                                                        ],
+                                                        'country_id' => [
+                                                            'sortOrder' => 40,
+                                                            'placeholder' => __('Select Country *'),
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4'
+                                                            ]
+
+                                                        ],
+                                                        'region' => [
+                                                            'label' => new \Magento\Framework\Phrase('State'),
+                                                            'sortOrder' => 50,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4'
+                                                            ]
+                                                        ],
+                                                        'region_id' => [
+                                                            'sortOrder' => 50,
+                                                            'placeholder' => __('Select a State *'),
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4'
+                                                            ]
+                                                        ],
+                                                        'city' => [
+                                                            'label' => new \Magento\Framework\Phrase('Town / City *'),
+                                                            'sortOrder' => 60,
+                                                            'placeholder' => false,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66'
+                                                            ]
+                                                        ],
+                                                        'postcode' => [
+                                                            'label' => new \Magento\Framework\Phrase('Postcode / Zip *'),
+                                                            'sortOrder' => 70,
+                                                            'placeholder' => false,
+                                                            'config' => [
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4',
+                                                            ]
+                                                        ],
+                                                        'telephone' => [
+                                                            'label' => new \Magento\Framework\Phrase('Phone *'),
+                                                            'sortOrder' => 80,
+                                                            'placeholder' => false,
+                                                            'config' => [
+                                                                'tooltip' => false,
+                                                                'template' => 'IWD_Opc/form/field',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4',
+                                                            ]
+                                                        ],
+                                                        'company' => [
+                                                            'visible' => false,
+                                                        ]
+                                                    ],
+                                                ],
                                                 'customer-email' => [
                                                     'component' => 'IWD_Opc/js/view/form/element/email',
                                                     'children' => [
@@ -401,6 +502,13 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                                         ]
                                                     ]
                                                 ],
+                                                'payment-buttons' => [
+                                                    'component' => 'IWD_Opc/js/view/payment-buttons',
+                                                    'displayArea' => 'payment-buttons',
+                                                    'config' => [
+                                                        'template' => 'IWD_Opc/payment-buttons'
+                                                    ],
+                                                ],
                                                 'before-shipping-method-form' => [
                                                     'children' => [
                                                         'shipping_policy' => [
@@ -415,46 +523,6 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                                     'displayArea' => 'gift-message',
                                                     'component' => 'IWD_Opc/js/view/gift-message',
                                                     'componentDisabled' => $this->getQuote()->isVirtual(),
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        $this->setComponent($shipping);
-    }
-
-    /**
-     * Update Standart Checkout shipping
-     */
-    public function updateStandartShipping()
-    {
-        $shipping = [
-            'components' => [
-                'checkout' => [
-                    'children' => [
-                        'steps' => [
-                            'children' => [
-                                'shipping-step' => [
-                                    'children' => [
-                                        'shippingAddress' => [
-                                            'children' => [
-                                                'customer-email' => [
-                                                    'component' => 'IWD_Opc/js/view/standart/form/element/email',
-                                                ],
-                                                'shippingAdditional' => [
-                                                    'component' => 'uiComponent',
-                                                    'displayArea' => 'shippingAdditional',
-                                                    'children' => [
-                                                        'comment' => [
-                                                            'component' => 'IWD_Opc/js/view/standart/comment',
-                                                        ]
-                                                    ]
                                                 ]
                                             ]
                                         ]
@@ -530,7 +598,21 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                                             'component' => 'IWD_Opc/js/view/billing/address-validation'
                                                         ]
                                                     ]
-                                                ]
+                                                ],
+                                                'discount' => [
+                                                    'config' => [
+                                                        'componentDisabled' => true,
+                                                    ]
+                                                ],
+                                                'afterMethods' => [
+                                                    'children' => [
+                                                        'discount' => [
+                                                            'config' => [
+                                                                'componentDisabled' => true,
+                                                            ]
+                                                        ],
+                                                    ],
+                                                ],
                                             ]
                                         ]
                                     ]
@@ -601,6 +683,9 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                 $customEntry = null;
                                 $dataScope = null;
                                 $code = '';
+
+                                $fieldConfig = $this->updateFieldConfig($fieldCode,$fieldConfig);
+
                                 if (isset($fieldConfig['config']['customScope'])) {
                                     $code = str_replace('billingAddress', '', $fieldConfig['config']['customScope']);
                                 }
@@ -678,7 +763,14 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                     'component' => 'IWD_Opc/js/view/billing-step-virtual',
                                     'sortOrder' => '1',
                                     'children' => [
-                                        'billing-address-form' => $billingForm
+                                        'billing-address-form' => $billingForm,
+                                        'payment-buttons' => [
+                                            'component' => 'IWD_Opc/js/view/payment-buttons',
+                                            'displayArea' => 'payment-buttons',
+                                            'config' => [
+                                                'template' => 'IWD_Opc/payment-buttons'
+                                            ],
+                                        ],
                                     ]
                                 ];
                         }
@@ -720,62 +812,92 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
             ['payment']['children']['payments-list']['children']['before-place-order']);
     }
 
-    /**
-     * Update Standart Checkout payment
-     */
-    public function updateStandartPayment()
-    {
-        $payment = [
-            'components' => [
-                'checkout' => [
-                    'children' => [
-                        'steps' => [
-                            'children' => [
-                                'billing-step' => [
-                                    'children' => [
-                                        'payment' => [
-                                            'children' => [
-                                                'customer-email' => [
-                                                    'component' => 'IWD_Opc/js/view/standart/form/element/email',
-                                                ],
-                                                'payments-list' => [
-                                                    'children' => [
-                                                        'before-place-order' => [
-                                                            'children' => [
-                                                                'comment' => [
-                                                                    'component' => 'IWD_Opc/js/view/standart/comment',
-                                                                ],
-                                                                'newsletter' => [
-                                                                    'component' => 'IWD_Opc/js/view/standart/newsletter',
-                                                                ]
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ],
-                                                'afterMethods' => [
-                                                    'children' => [
-                                                        'discount' => [
-                                                            'config' => [
-                                                                'componentDisabled' => !$this->opcHelper->isShowDiscount(),
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        $this->setComponent($payment);
-        if (!$this->getQuote()->isVirtual()) {
-            unset($this->jsLayout['components']['checkout']['children']['steps']['children']['billing-step']
-                ['children']['payment']['children']['payments-list']['children']['before-place-order']['children']['comment']);
+    public function updateFieldConfig($fieldCode,$fieldConfig) {
+        if ($fieldCode === 'firstname') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('First Name *');
+            $fieldConfig['sortOrder'] = '10';
+            $fieldConfig['placeholder'] = false;
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['config']['additionalClasses'] = 'float-left';
+        } else if ($fieldCode === 'lastname') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Last Name *');
+            $fieldConfig['sortOrder'] = '20';
+            $fieldConfig['placeholder'] = false;
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['config']['additionalClasses'] = 'float-right';
+        } else if ($fieldCode === 'street') {
+            $fieldConfig['sortOrder'] = '30';
+            $fieldConfig['config']['template'] = 'IWD_Opc/group/group';
+            $fieldConfig['children'][0]['visible'] = true;
+            $fieldConfig['children'][0]['label'] = new \Magento\Framework\Phrase('Street Address *');
+            $fieldConfig['children'][0]['placeholder'] = __('Street Address *');
+            $fieldConfig['children'][0]['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['children'][0]['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['children'][1]['visible'] = true;
+            $fieldConfig['children'][1]['label'] = new \Magento\Framework\Phrase('Apartment / Suite / Building');
+            $fieldConfig['children'][1]['placeholder'] = __('Apartment / Suite / Building');
+            $fieldConfig['children'][1]['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['children'][1]['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['children'][1]['config']['validation'] = ['required-entry' => false];
+            $fieldConfig['children'][2]['visible'] = false;
+        } else if ($fieldCode === 'country_id') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Select Country *');
+            $fieldConfig['sortOrder'] = '40';
+            $fieldConfig['placeholder'] = __('Select Country *');
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+        } else if ($fieldCode === 'region') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('State');
+            $fieldConfig['visible'] = false;
+            $fieldConfig['sortOrder'] = '50';
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+        } else if ($fieldCode === 'region_id') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Select a State *');
+            $fieldConfig['sortOrder'] = '50';
+            $fieldConfig['placeholder'] = __('Select a State *');
+            $fieldConfig['component'] = 'Magento_Ui/js/form/element/region';
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['elementTmpl'] = 'ui/form/element/select';
+            $fieldConfig['config']['customEntry'] = 'billingAddress.region';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+            $fieldConfig['validation']['required-entry'] = true;
+            $fieldConfig['filterBy']['target'] = '${ $.provider }:${ $.parentScope }.country_id';
+            $fieldConfig['filterBy']['field'] = 'country_id';
+        } else if ($fieldCode === 'city') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Town / City *');
+            $fieldConfig['sortOrder'] = '60';
+            $fieldConfig['placeholder'] = __('Town / City *');
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+        } else if ($fieldCode === 'postcode') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Postcode / Zip *');
+            $fieldConfig['sortOrder'] = '70';
+            $fieldConfig['placeholder'] = __('Postcode / Zip *');
+            $fieldConfig['component'] = 'Magento_Ui/js/form/element/post-code';
+            $fieldConfig['validation']['required-entry'] = true;
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+        } else if ($fieldCode === 'telephone') {
+            $fieldConfig['label'] = new \Magento\Framework\Phrase('Phone *');
+            $fieldConfig['sortOrder'] = '80';
+            $fieldConfig['placeholder'] = __('Phone *');
+            $fieldConfig['config']['tooltip'] = false;
+            $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
+            $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+        } else if ($fieldCode === 'company') {
+            $fieldConfig['visible'] = false;
+        } else if ($fieldCode === 'fax') {
+            $fieldConfig['visible'] = false;
         }
+
+        return $fieldConfig;
     }
 
     /**
@@ -786,36 +908,13 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
         $onePage = [
             'components' => [
                 'checkout' => [
-                    'config' => [
-                        'template' => 'IWD_Opc/onepage'
-                    ],
                     'children' => [
-                        'errors' => [
-                            'component' => 'IWD_Opc/js/view/errors',
-                            'displayArea' => 'errors'
-                        ],
                         'progressBar' => [
                             'componentDisabled' => true,
                         ],
                         'estimation' => [
                             'componentDisabled' => true,
                         ],
-                        'authentication' => [
-                            'componentDisabled' => true,
-                        ],
-                    ]
-                ]
-            ]
-        ];
-        $this->setComponent($onePage);
-    }
-
-    public function updateStandartOnePage()
-    {
-        $onePage = [
-            'components' => [
-                'checkout' => [
-                    'children' => [
                         'authentication' => [
                             'componentDisabled' => true,
                         ],
@@ -865,169 +964,6 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                             'config' => [
                                 'template' => 'IWD_Opc/sidebar'
                             ],
-                            'children' => [
-                                'summary' => [
-                                    'component' => 'IWD_Opc/js/view/summary',
-                                    'config' => [
-                                        'template' => 'IWD_Opc/summary'
-                                    ],
-                                    'children' => [
-                                        'totals' => [
-                                            'config' => [
-                                                'template' => 'IWD_Opc/summary/totals'
-                                            ],
-                                            'children' => [
-                                                'subtotal' => [
-                                                    'component' => 'Magento_Tax/js/view/checkout/summary/subtotal',
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/subtotal'
-                                                    ],
-                                                ],
-                                                'shipping' => [
-                                                    'component' => 'Magento_Tax/js/view/checkout/summary/shipping',
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/shipping'
-                                                    ],
-                                                ],
-                                                'grand-total' => [
-                                                    'component' => 'Magento_Tax/js/view/checkout/summary/grand-total',
-                                                    'displayArea' => 'grand-total',
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/grand-total'
-                                                    ],
-                                                ],
-                                                'discount' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/discount'
-                                                    ],
-                                                ],
-                                                'tax' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/tax'
-                                                    ],
-                                                ],
-                                                'weee' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/weee'
-                                                    ],
-                                                ],
-                                                'customerbalance' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/customer-balance'
-                                                    ],
-                                                ],
-                                                'storecredit' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/customer-balance'
-                                                    ],
-                                                ],
-                                                'giftCardAccount' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/totals/gift-card-account'
-                                                    ],
-                                                ],
-                                                'before_grandtotal' => [
-                                                    'children' => [
-                                                        'gift-wrapping-order-level' => [
-                                                            'template' => 'IWD_Opc/summary/totals/gift-wrapping'
-                                                        ],
-                                                        'gift-wrapping-item-level' => [
-                                                            'template' => 'IWD_Opc/summary/totals/gift-wrapping'
-                                                        ],
-                                                        'printed-card' => [
-                                                            'template' => 'IWD_Opc/summary/totals/gift-wrapping'
-                                                        ],
-                                                        'reward' => [
-                                                            'template' => 'IWD_Opc/summary/totals/reward'
-                                                        ],
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        'cart_items' => [
-                                            'displayArea' => 'cart_items',
-                                            'config' => [
-                                                'template' => 'IWD_Opc/summary/cart-items'
-                                            ],
-                                            'children' => [
-                                                'details' => [
-                                                    'config' => [
-                                                        'template' => 'IWD_Opc/summary/item/details'
-                                                    ],
-                                                    'children' => [
-                                                        'subtotal' => [
-                                                            'component' => 'Magento_Tax/js/view/checkout/summary/item/details/subtotal',
-                                                            'config' => [
-                                                                'template' => 'IWD_Opc/summary/item/details/subtotal'
-                                                            ],
-                                                            'children' => [
-                                                                'weee_row_incl_tax' => [
-                                                                    'config' => [
-                                                                        'template' => 'IWD_Opc/summary/item/details/price/row_incl_tax'
-                                                                    ],
-                                                                ],
-                                                                'weee_row_excl_tax' => [
-                                                                    'config' => [
-                                                                        'template' => 'IWD_Opc/summary/item/details/price/row_excl_tax'
-                                                                    ],
-                                                                ]
-                                                            ]
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        'itemsBefore' => [
-                                            'displayArea' => 'itemsBefore'
-                                        ],
-                                        'itemsAfter' => [
-                                            'displayArea' => 'itemsAfter'
-                                        ]
-                                    ]
-                                ],
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        $this->jsLayout['components']['checkout']['children']['sidebar']['children']['summary']['children']
-        ['grand-total'] = $this->jsLayout['components']['checkout']['children']['sidebar']['children']
-        ['summary']['children']['totals']['children']['grand-total'];
-        $this->jsLayout['components']['checkout']['children']['sidebar']['children']['summary']['children']
-        ['grand-total']['config']['template'] = 'IWD_Opc/summary/grand-total';
-        $this->jsLayout['components']['checkout']['children']['sidebar']['children']['summary']['children']
-        ['grand-total']['displayArea'] = 'grand-total-head';
-        $this->jsLayout['components']['checkout']['children']['sidebar']['children']['summary']['children']
-        ['grand-total']['component'] = 'Magento_Tax/js/view/checkout/summary/grand-total';
-        $this->setComponent($sidebar);
-    }
-
-    /**
-     * Update Standart totals
-     */
-    public function updateStandartTotals()
-    {
-        $sidebar = [
-            'components' => [
-                'checkout' => [
-                    'children' => [
-                        'sidebar' => [
-                            'children' => [
-                                'summary' => [
-                                    'children' => [
-                                        'itemsAfter' => [
-                                            'displayArea' => 'itemsAfter',
-                                            'children' => [
-                                                'gift-message' => [
-                                                    'component' => 'IWD_Opc/js/view/standart/gift-message',
-                                                    'componentDisabled' => $this->getQuote()->isVirtual(),
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
                         ]
                     ]
                 ]
@@ -1126,5 +1062,192 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
         }
 
         return $this;
+    }
+
+    private function updateSaasCheckout(){
+        $this->addDiscountBlock();
+        $this->addLinkToShoppingCart();
+        $this->addPlaceOrderButtonToSummaryBlock();
+        $this->reconstructionOpc();
+    }
+
+    private function addDiscountBlock(){
+        if($this->opcHelper->isShowDiscount()){
+            $discount = [
+                'components' => [
+                    'checkout' => [
+                        'children' => [
+                            'sidebar' => [
+                                'children' => [
+                                    'summary' => [
+                                        'children' => [
+                                            'discount' => [
+                                                'component' => 'IWD_Opc/js/view/payment/discount',
+                                                'children' => [
+                                                    'errors' => [
+                                                        'sortOrder' => 0,
+                                                        'component' => 'IWD_Opc/js/view/payment/discount/errors',
+                                                        'displayArea' => 'messages',
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]
+                    ]
+                ]
+            ];
+            $this->setComponent($discount);
+        }
+    }
+
+    private function addLinkToShoppingCart(){
+        $placeOrderButton = [
+            'components' => [
+                'checkout' => [
+                    'children' => [
+                        'sidebar' => [
+                            'children' => [
+                                'summary' => [
+                                    'children' => [
+                                        'edit-cart' => [
+                                            'sortOrder' => 10,
+                                            'component' => 'IWD_Opc/js/view/summary/edit-cart',
+                                            'config' => [
+                                                'title' => 'Edit Cart',
+                                                'link' => '/checkout/cart/',
+                                                'template' => 'IWD_Opc/summary/edit-cart',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ]
+        ];
+        $this->setComponent($placeOrderButton);
+    }
+
+    public function addPlaceOrderButtonToSummaryBlock(){
+        $placeOrderButton = [
+            'components' => [
+                'checkout' => [
+                    'children' => [
+                        'sidebar' => [
+                            'children' => [
+                                'summary' => [
+                                    'children' => [
+                                        'place-order' => [
+                                            'sortOrder' => 999,
+                                            'component' => 'IWD_Opc/js/view/summary/place-order',
+                                            'config' => [
+                                                'template' => 'IWD_Opc/summary/place-order',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ]
+        ];
+        $this->setComponent($placeOrderButton);
+    }
+
+    private function reconstructionOpc(){
+        $movePosition = [
+            'components' => [
+                'checkout' => [
+                    'children' => [
+                        'steps' => [
+                            'children' => [
+                                'info-block' => [
+                                    'sortOrder' => 999,
+                                    'component' => 'IWD_Opc/js/view/info-block',
+                                    'config' => [
+                                        'template' => 'IWD_Opc/info-block',
+                                    ],
+                                ],
+                                'billing-step' => [
+                                    'children' => [
+                                        'payment' => [
+                                            'children' => [
+                                                'renders' => [
+                                                    'children' => [
+                                                        'braintree' => [
+                                                            'component' => 'IWD_Opc/js/view/payment/braintree'
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        ],
+                        'sidebar' => [
+                            'children' => [
+                                'summary' => [
+                                    'component' => 'IWD_Opc/js/view/summary',
+                                    'config' => [
+                                        'template' => 'IWD_Opc/summary'
+                                    ],
+                                    'children' => [
+                                        'cart_items' => [
+                                            'component' => 'IWD_Opc/js/view/summary/cart-items',
+                                            'children' => [
+                                                'details' => [
+                                                    'component' => 'IWD_Opc/js/view/summary/item/details'
+                                                ]
+                                            ],
+                                            'sortOrder' => 970,
+                                        ],
+                                        'discount' => [
+                                            'sortOrder' => 980,
+                                        ],
+                                        'totals' => [
+                                            'children' => [
+                                                'subtotal' =>[
+                                                    'component' => 'IWD_Opc/js/view/summary/subtotal',
+                                                    'config' => [
+                                                        'title' => 'Subtotal',
+                                                    ],
+                                                ],
+                                                'discount' => [
+                                                    'component' => 'IWD_Opc/js/view/summary/discount',
+                                                    'config' => [
+                                                        'title' => 'Discount',
+                                                    ],
+                                                ],
+                                                'shipping' => [
+                                                    'component' => 'IWD_Opc/js/view/summary/shipping',
+                                                    'config' => [
+                                                        'title' => 'Shipping',
+                                                        'notCalculatedMessage' => 'Not yet calculated'
+                                                    ],
+                                                ],
+                                                'grand-total' => [
+                                                    'component' => 'IWD_Opc/js/view/summary/grand-total',
+                                                    'config' => [
+                                                        'title' => 'Total to pay'
+                                                    ],
+                                                ],
+                                            ],
+                                            'sortOrder' => 990,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ]
+        ];
+        $this->setComponent($movePosition);
     }
 }

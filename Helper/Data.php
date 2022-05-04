@@ -42,6 +42,30 @@ class Data extends AbstractHelper
     const XML_PATH_GM_AUTOCOMPLETE_ENABLE = 'iwd_opc/extended/gm_autocomplete';
     const XML_PATH_GM_APIKEY = 'iwd_opc/extended/gm_apikey';
 
+
+    //Layout
+    const XML_PATH_DESKTOP_RESOLUTION = 'iwd_opc/design/layout/desktop';
+    const XML_PATH_MOBILE_RESOLUTION = 'iwd_opc/design/layout/mobile';
+    const XML_PATH_TABLET_RESOLUTION = 'iwd_opc/design/layout/tablet';
+    const XML_PATH_ADDRESS_TYPE_ORDER = 'iwd_opc/design/layout/address_type_order';
+
+    //Style
+    const XML_PATH_FONT_FAMILY = 'iwd_opc/design/style/font';
+
+    const XML_PATH_MAIN_BACKGROUND = 'iwd_opc/design/style/page_background';
+    const XML_PATH_SUMMARY_BACKGROUND = 'iwd_opc/design/style/sidebar_background';
+
+    const XML_PATH_MAIN_COLOR = 'iwd_opc/design/style/body_text_color';
+    const XML_PATH_HEADING_COLOR = 'iwd_opc/design/style/heading_text_color';
+    const XML_PATH_LINK_COLOR = 'iwd_opc/design/style/link_color';
+    const XML_PATH_HIGHLIGHT_COLOR = 'iwd_opc/design/style/input_highlight_color';
+
+    const XML_PATH_PRIMARY_BUTTON_BACKGROUND = 'iwd_opc/design/style/primary_btn_background';
+    const XML_PATH_PRIMARY_BUTTON_TEXT_COLOR = 'iwd_opc/design/style/primary_btn_text_color';
+
+    const XML_PATH_SECONDARY_BUTTON_BACKGROUND = 'iwd_opc/design/style/secondary_btn_background';
+    const XML_PATH_SECONDARY_BUTTON_TEXT_COLOR = 'iwd_opc/design/style/secondary_btn_text_color';
+
     public $storeManager;
     public $resourceConfig;
     public $curlFactory;
@@ -258,4 +282,88 @@ class Data extends AbstractHelper
         return (bool)$this->scopeConfig->getValue(self::XML_PATH_DISPLAY_ALL_METHODS);
     }
 
+    public function getMainBackground()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_MAIN_BACKGROUND);
+    }
+
+    public function getMainColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_MAIN_COLOR);
+    }
+
+    public function getSummaryBackground()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_SUMMARY_BACKGROUND);
+    }
+
+    public function getHeadingColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_HEADING_COLOR);
+    }
+
+    public function getLinkColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_LINK_COLOR);
+    }
+
+    public function getHighlightColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_HIGHLIGHT_COLOR);
+    }
+
+    public function getPrimaryButtonBackground()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_PRIMARY_BUTTON_BACKGROUND);
+    }
+
+    public function getPrimaryButtonTextColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_PRIMARY_BUTTON_TEXT_COLOR);
+    }
+
+    public function getSecondaryButtonBackground()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_SECONDARY_BUTTON_BACKGROUND);
+    }
+
+    public function getSecondaryButtonTextColor()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_SECONDARY_BUTTON_TEXT_COLOR);
+    }
+
+    public function getFontFamily()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_FONT_FAMILY);
+    }
+
+    public function getDesktopResolution()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_DESKTOP_RESOLUTION);
+    }
+
+    public function getMobileResolution()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_MOBILE_RESOLUTION);
+    }
+
+    public function getTabletResolution()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_TABLET_RESOLUTION);
+    }
+
+    public function getAddressTypeOrder()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_ADDRESS_TYPE_ORDER);
+    }
+
+    public function getDefaultShipping()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_DEFAULT_SHIPPING_METHOD);
+    }
+
+    public function getDefaultPayment()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_DEFAULT_PAYMENT_METHOD);
+    }
 }

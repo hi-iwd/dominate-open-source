@@ -9,6 +9,9 @@ define(
 
         return {
             validate: function () {
+
+                return true;
+
                 var billingAddress;
                 if (quote.isVirtual()) {
                     billingAddress = registry.get('checkout.steps.billing-step-virtual.billing-address-form');

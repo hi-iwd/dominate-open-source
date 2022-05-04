@@ -28,4 +28,12 @@
     <type name="Magento\Payment\Model\InfoInterface">
         <plugin name="iwd_opc_unset_extension_attributes" type="IWD\Opc\Plugin\Payments\Info"/>
     </type>
+
+    <type name="\Magento\Checkout\Block\Checkout\AttributeMerger">
+        <plugin name="customAttributeMerger" type="IWD\Opc\Plugin\AttributeMergerPlugin"/>
+    </type>
+
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="iwd_modified_checkout_layout_processor" type="IWD\Opc\Plugin\Block\LayoutProcessor" sortOrder="1"/>
+    </type>
 </config>

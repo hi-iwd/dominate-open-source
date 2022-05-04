@@ -8,6 +8,7 @@ define(
 
         return {
             validate: function () {
+                return true;
                 var $coPaymentForm = $('#co-payment-form');
                 var paymentMethodSelected = $coPaymentForm.validate({
                     errorClass: 'mage-error',

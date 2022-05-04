@@ -70,13 +70,143 @@ define(
             }),
             isPlaceOrderActionAllowed: ko.observable(true),
 
+            checkoutData: window.checkoutData,
+
+            startLoader: function(){
+                window.fullScreenLoader.startLoader();
+            },
+
+            stopLoader: function(timeout = 2000){
+                setTimeout(function () {
+                    window.fullScreenLoader.stopLoader();
+                },timeout)
+            },
+
+            goToDeliveryStep: function(){
+                let summary = self.checkoutData.summary;
+
+                this.startLoader();
+                summary.updateSummaryWrapperTopHeight(0);
+                this.PaymentStep(false);
+                this.checkoutData.shipping.DeliveryStep(true);
+                this.stopLoader(1000);
+            },
+
+            goToBillingVirtualStep: function () {
+                let summary = self.checkoutData.summary;
+
+                this.startLoader();
+                summary.updateSummaryWrapperTopHeight(0);
+                this.PaymentStep(false);
+                this.checkoutData.billingStepVirtual.AddressStep(true);
+                this.stopLoader(1000);
+            },
+
+            getDesignResolution: function(design){
+                return this.checkoutData.layout.design;
+            },
+
+            reInitPayPal: function () {
+                if (window.checkoutData && window.checkoutData.paypal) {
+                    let token = false,
+                        currency = false;
+
+                    if (window.checkoutConfig && window.checkoutConfig.totalsData && window.checkoutConfig.totalsData.base_currency_code) {
+                        currency = window.checkoutConfig.totalsData.base_currency_code;
+                    }
+
+                    if (window.checkoutConfig && window.checkoutConfig.payment
+                        && window.checkoutConfig.payment.braintree && window.checkoutConfig.payment.braintree.clientToken) {
+                        token = window.checkoutConfig.payment.braintree.clientToken;
+                    }
+
+                    $('.action-braintree-paypal-logo').each(function () {
+                        if($(this).hasClass( "button-loaded" )) {
+                            $(this).removeClass('button-loaded');
+                        }
+                    });
+
+                    if (token && currency) {
+                        window.checkoutData.paypal.init(token,currency)
+                    }
+                }
+            },
+
+            isActiveBraintreePaypal: function () {
+                let activePaymentMethod = $('.payment-method._active');
+
+                if (activePaymentMethod.length && activePaymentMethod.attr('id') === 'payment-method-braintree-paypal') {
+                    return true;
+                }
+
+                return false;
+            },
+
             initialize: function () {
-                this._super();
+                this._super().observe({
+                    PaymentStep: ko.observable(false),
+                    isMultiStepResolution: ko.observable(false),
+                });
+
+                this.checkoutData.payment = this;
+
                 this.navigate();
-                var self = this;
+
+                let self = this,
+                    secondaryPlaceOrder = self.checkoutData.secondaryPlaceOrder,
+                    summary = self.checkoutData.summary;
+
+                self.isMultiStepResolution.subscribe(function (status) {
+                    if (status) {
+                        secondaryPlaceOrder.isVisible(false);
+                    } else {
+                        if (self.isActiveBraintreePaypal()) {
+                            secondaryPlaceOrder.isVisible(false);
+                        } else {
+                            secondaryPlaceOrder.isVisible(true);
+                        }
+                    }
+                })
+
+                self.PaymentStep.subscribe(function (status) {
+                    summary.updateSummaryWrapperTopHeight(0);
+                    if (self.isMultiStepResolution() && status) {
+                        if (self.isActiveBraintreePaypal()) {
+                            secondaryPlaceOrder.isVisible(false);
+                        } else {
+                            secondaryPlaceOrder.isVisible(true);
+                        }
+                    } else if (self.isMultiStepResolution() && !status) {
+                        secondaryPlaceOrder.isVisible(false);
+                    } else {
+                        if (self.isActiveBraintreePaypal()) {
+                            secondaryPlaceOrder.isVisible(false);
+                        } else {
+                            secondaryPlaceOrder.isVisible(true);
+                        }
+                    }
+                });
+
                 this.isSubscribe.subscribe(function (value) {
                     checkoutData.setIsSubscribe(value);
                 });
+
+                $(document).on('click', '.payment-method:not(._active)', function (e) {
+                    $(this).find('input[name="payment[method]"]').click();
+
+                    if ($(this).attr('id') === 'payment-method-braintree-paypal') {
+                        $('#braintree_paypal_placeholder').show();
+                        $('.place_button_wrapper > button').hide();
+                        setTimeout(function (){
+                            self.reInitPayPal();
+
+                        },1000);
+                    } else {
+                        $('.place_button_wrapper > button').show();
+                        $('#braintree_paypal_placeholder').hide();
+                    }
+                });
+
                 $(document).on('mouseover', '.iwd_opc_cc_types_tooltip', function () {
                     var fixedContent = $(this).find('.iwd_opc_field_tooltip_content');
                     if (fixedContent.length) {
@@ -135,6 +265,21 @@ define(
                         self.fillCcExpDateFields($(this), '', '');
                     }
                 });
+
+                let paymentMethodInterval = setInterval(function (){
+                    if ($('.payment-method').length) {
+                        if ($('.payment-method._active').length) {
+                            if ($('.payment-method._active').attr('id') ===  'payment-method-braintree-paypal') {
+                                $('#braintree_paypal_placeholder').show();
+                                $('.place_button_wrapper > button').hide();
+                                setTimeout(function (){
+                                    self.reInitPayPal();
+                                },1000);
+                            }
+                        }
+                        clearInterval(paymentMethodInterval);
+                    }
+                },500);
 
                 return this;
             },
@@ -220,10 +365,26 @@ define(
             },
 
             placeOrder: function (data, event) {
-                var self = this;
+                var self = this,
+                    shipping = self.checkoutData.shipping,
+                    billing = self.checkoutData.billing;
+
                 this.isPlaceOrderActionAllowed(false);
+
                 if (event) {
                     event.preventDefault();
+                }
+
+                if (quote.isVirtual()) {
+                    if (billing.isAddressHasError()) {
+                        this.isPlaceOrderActionAllowed(true);
+                        return false;
+                    }
+                } else {
+                    if (shipping.isAddressHasError()) {
+                        this.isPlaceOrderActionAllowed(true);
+                        return false;
+                    }
                 }
 
                 if (additionalValidators.validate()) {
@@ -242,11 +403,8 @@ define(
                                 self.isPlaceOrderActionAllowed(true);
                             });
                         } else {
-                            setBillingAddressAction(globalMessageList).done(function () {
-                                self.clickNativePlaceOrder();
-                            }).fail(function () {
-                                self.isPlaceOrderActionAllowed(true);
-                            });
+                            this.isPlaceOrderActionAllowed(true);
+                            $('.payment-method._active button[type=submit].checkout').click();
                         }
                     }
                 } else {

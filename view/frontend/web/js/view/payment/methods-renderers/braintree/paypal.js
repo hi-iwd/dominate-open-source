@@ -30,5 +30,13 @@ define([
                 }
             }
         },
+
+        getButtonId: function () {
+            return  (this.item && this.item.method) ? this.item.method : 'braintree_paypal';
+        },
+
+        getButtonTitle: function () {
+            return (this.item && this.item.title) ? this.item.title : 'Paypal';
+        },
     });
 });

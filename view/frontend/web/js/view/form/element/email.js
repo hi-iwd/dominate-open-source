@@ -41,29 +41,49 @@ define([
         forgotPasswordUrl: quote.getForgotPasswordUrl(),
         emailCheckTimeout: 0,
 
-        // initialize: function () {
-        //     var self = this;
-        //     this._super();
-        //     loginAction.registerLoginCallback(function (loginData) {
-        //         self.isLoading(false);
-        //     });
-        // },
+        checkoutData: window.checkoutData,
+
+        getInputFieldEmailValue: function () {
+            return checkoutData.getInputFieldEmailValue();
+        },
 
         initObservable: function () {
             var self = this;
             this._super()
                 .observe(['email', 'emailFocused', 'passwordFocused', 'isLoading', 'isPasswordVisible']);
 
+            self.isPasswordVisible(false);
+
+            self.checkoutData.login = this;
+
             $(document).on('click', '#iwd_opc_top_login_button', function () {
-                self.isPasswordVisible(true);
-                if (!self.email()) {
-                    self.emailFocused(true);
-                } else {
-                    self.passwordFocused(true);
+                if(self.isPasswordVisible()){
+                    self.isPasswordVisible(false)
+                }else{
+                    self.isPasswordVisible(true);
+                    if (!self.email()) {
+                        self.emailFocused(true);
+                    } else {
+                        self.passwordFocused(true);
+                    }
                 }
             });
 
             return this;
+        },
+
+        onCustomerEmailChange: function() {
+            let self = this,customerData = {};
+            self.emailHasChanged();
+            customerData.customerEmail = checkoutData.getInputFieldEmailValue();
+            customerData.isEmailValid = false;
+            if(self.validateEmail()){
+                customerData.isEmailValid = true;
+                self.checkoutData.infoBlock.updateCustomerEmailItem(customerData);
+            }else{
+                self.checkoutData.infoBlock.updateCustomerEmailItem(customerData)
+            }
+            return true;
         },
 
         emailHasChanged: function () {
@@ -99,8 +119,8 @@ define([
                 self.isPasswordVisible(false);
                 checkoutData.setIsPasswordVisible(false);
             }).fail(function () {
-                self.isPasswordVisible(true);
-                checkoutData.setIsPasswordVisible(true);
+                //self.isPasswordVisible(true);
+                //checkoutData.setIsPasswordVisible(true);
             }).always(function () {
                 self.isLoading(false);
             });

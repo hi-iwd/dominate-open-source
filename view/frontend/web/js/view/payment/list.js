@@ -52,7 +52,7 @@ define(defineArray,
 
     return Component.extend({
         defaults: {
-            template: 'IWD_Opc/payment-methods/list',
+            template: 'IWD_Opc/payment-methods/custom-payment-list',
             visible: paymentMethods().length > 0,
             configDefaultGroup: {
                 name: 'methodGroup',
@@ -67,7 +67,7 @@ define(defineArray,
                 banktransfer: 'IWD_Opc/js/view/payment/methods-renderers/banktransfer-method',
                 cashondelivery: 'IWD_Opc/js/view/payment/methods-renderers/cashondelivery-method',
                 purchaseorder: 'IWD_Opc/js/view/payment/methods-renderers/purchaseorder-method',
-                braintree_paypal: 'IWD_Opc/js/view/payment/methods-renderers/braintree/paypal',
+                braintree_paypal: 'IWD_Opc/js/view/payment/methods-renderers/paypal',
                 braintree: 'IWD_Opc/js/view/payment/methods-renderers/braintree/hosted-fields',
                 authorizenet_directpost: 'IWD_Opc/js/view/payment/methods-renderers/authorizenet-directpost',
                 paypal_express_bml: 'IWD_Opc/js/view/payment/methods-renderers/paypal-express-bml',
@@ -132,7 +132,7 @@ define(defineArray,
             this.optionsRenderCallback = setTimeout(function () {
                 var select = $('#' + uid);
                 if (select.length) {
-                    select.decorateSelectCustom();
+                    //select.decorateSelectCustom();
                 }
             }, 0);
         },
@@ -210,6 +210,11 @@ define(defineArray,
                         }
                     }
 
+                    if(!$(".payment-method._active").length){
+                        console.log('create active');
+                        $(".payment-method:first").addClass('_active');
+                    }
+
                     var $activePaymentMethod = $(".payment-method._active");
 
                     if (document.getElementById('purchaseorder-form') != null) {
@@ -218,7 +223,13 @@ define(defineArray,
                     $activePaymentMethod.show();
 
                     $('.payment-method input[value="' + method + '"]').first().click();
-
+                    if (method === 'braintree_paypal') {
+                        $('#braintree_paypal_placeholder').show();
+                        $('.iwd_opc_place_order_button').hide();
+                    }else {
+                        $('#braintree_paypal_placeholder').hide();
+                        $('.iwd_opc_place_order_button').show();
+                    }
                     if (method === "braintree") {
                         var checkExist = setInterval(function () {
                             $('.iwd_opc_hosted_label[for*="braintree_cc_number"]').click();

@@ -53,4 +53,15 @@
         <plugin name="iwd_opc_get_checkout_url_cart"
                 type="IWD\Opc\Plugin\Checkout\Block\Cart"/>
     </type>
+
+    <preference for="PayPal\Braintree\Block\Paypal\Button" type="IWD\Opc\Block\Rewrite\Paypal\Button" />
+
+    <type name="IWD\Opc\Block\Rewrite\Paypal\Button">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">IWD_Opc::paypal/button.phtml</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>

@@ -26,7 +26,21 @@ define([
         },
 
         isVisible: function () {
-            return this.messageContainer.hasMessages();
+            if (this.messageContainer.errorMessages()) {
+                let errorMessage = this.messageContainer.errorMessages()[0];
+
+                if (typeof errorMessage === 'undefined') {
+                    return false;
+                }
+
+                if (errorMessage.indexOf('coupon') === -1) {
+                    return false;
+                }
+
+                return this.messageContainer.hasMessages();
+            }
+
+            return false;
         },
 
         removeAll: function () {

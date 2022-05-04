@@ -26,5 +26,8 @@
                    template="IWD_Opc::popup.phtml">
             </block>
         </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <block class="IWD\Opc\Block\Checkout\Design" name="custom_style" template="IWD_Opc::page/design.phtml"/>
+        </referenceContainer>
     </body>
 </page>

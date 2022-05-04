@@ -59,7 +59,7 @@ class Onepage extends CheckoutOnepage
     public function renderPayPalInContextBlock()
     {
         return $this->layout->createBlock(\Magento\Paypal\Block\Express\InContext\Component::class)
-            ->setTemplate('Magento_Paypal::express/in-context/component.phtml')
+            ->setTemplate('Magento_Paypal::express/in-context/shortcut/button.phtml')
             ->toHtml();
     }
 }

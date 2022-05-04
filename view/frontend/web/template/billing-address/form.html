@@ -1,24 +1,14 @@
-<form class="form billing-address-form co-billing-form" data-bind="visible: isAddressFormVisible">
-    <!-- ko if: customerHasAddresses -->
-    <div class="iwd_opc_section_delimiter"></div>
-    <!--/ko-->
+<div class="billing-address-form" data-bind="fadeVisible: isAddressFormVisible">
+    <div class="iwd_opc_universal_wrapper iwd_opc_column_name" data-bind="i18n: 'Billing Address'" data-role="title"></div>
+
+    <!-- ko template: 'IWD_Opc/billing-address/list' --><!-- /ko -->
+
     <!-- ko foreach: getRegion('before-fields') -->
     <!-- ko template: getTemplate() --><!-- /ko -->
     <!--/ko-->
-    <div id="billing-new-address-form" class="fieldset address">
+    <fieldset id="billing-new-address-form" class="fieldset address">
         <!-- ko foreach: getRegion('additional-fieldsets') -->
         <!-- ko template: getTemplate() --><!-- /ko -->
         <!--/ko-->
-        <!-- ko if: (isCustomerLoggedIn) -->
-        <div class="choice field">
-            <input type="checkbox" class="checkbox" id="billing-save-in-address-book"
-                   data-bind="checked: saveInAddressBook,
-                   attr: {id: 'billing-save-in-address-book-' + index}"/>
-            <label class="label" for="billing-save-in-address-book"
-                   data-bind="attr: {for: 'billing-save-in-address-book-' + index}">
-                <span data-bind="i18n: 'Save in address book'"></span>
-            </label>
-        </div>
-        <!-- /ko -->
-    </div>
-</form>
+    </fieldset>
+</div>

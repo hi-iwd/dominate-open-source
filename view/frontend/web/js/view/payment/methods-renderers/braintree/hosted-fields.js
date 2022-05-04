@@ -16,17 +16,6 @@ define([
                 fields.cvv.placeholder = $t('CVV') + ' *';
             }
 
-            fields.number.placeholder = $t('Credit Card Number') + ' *';
-            fields.expirationMonth.placeholder = $t('MM') + ' *';
-            fields.expirationYear.placeholder = $t('YY') + ' *';
-            fields.styles = {
-                "input": {
-                    "font-size": "14px",
-                    "color": "rgb(52,52,52)",
-                    "font-family": "'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif"
-                }
-            };
-
             return fields;
         }
     });

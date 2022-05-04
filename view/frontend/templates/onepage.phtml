@@ -114,4 +114,15 @@ $isVirtual = $block->checkoutSession->getQuote()->isVirtual() ?>
     });
 
 </script>
+<script>
+    require([
+        'IWD_Opc/js/paypal/button',
+        'jquery'
+    ], function (button, $) {
+        if (typeof window.checkoutData !== 'object') {
+            window.checkoutData = {};
+        }
+        window.checkoutData.paypal = button;
+    })
+</script>
 <div class="iwd_opc_clear"></div>

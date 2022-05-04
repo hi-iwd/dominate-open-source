@@ -226,10 +226,12 @@ define([
         },
 
         isGiftMessageAvailableForOrder: function () {
+            return false;
             return giftOptionsConfig && giftOptionsConfig.isOrderLevelGiftOptionsEnabled;
         },
 
         isGiftMessageAvailableForItems: function () {
+            return false;
             var isGloballyAvailable,
                 availableItem = false;
 

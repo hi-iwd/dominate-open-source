@@ -1,43 +1,27 @@
-<div
-        data-bind="
-        iwdBlockLoader: isLoading
-        "
-        id="iwd_opc_review"
-        class="iwd_opc_column">
-    <div
-            data-bind="hasFocus: reviewFocus"
-            tabindex="-1"
-            class="iwd_opc_alternative_column">
-        <div
-                data-bind="
-                click: toggleReview,
-                css: opened()? 'opened' : 'closed'"
-                id="iwd_opc_review_head" class="iwd_opc_button active with_angle">
-            <!-- ko foreach: getRegion('grand-total-head') -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
-        </div>
-        <div
-                data-bind="visible: opened"
-                id="iwd_opc_review_items_totals">
-            <div id="iwd_opc_top_review_items_wrapper" data-bind="afterRender: appendScrollbar">
-                <div id="iwd_opc_review_items">
-                    <!-- ko foreach: getRegion('itemsBefore') -->
-                    <!-- ko template: getTemplate() --><!-- /ko -->
-                    <!--/ko-->
-                    <!-- ko foreach: getRegion('cart_items') -->
-                    <!-- ko template: getTemplate() --><!-- /ko -->
-                    <!--/ko-->
-                    <!-- ko foreach: getRegion('itemsAfter') -->
-                    <!-- ko template: getTemplate() --><!-- /ko -->
-                    <!--/ko-->
-                </div>
-            </div>
-            <div id="iwd_opc_review_totals">
-                <!-- ko foreach: getRegion('totals') -->
-                <!-- ko template: getTemplate() --><!-- /ko -->
-                <!--/ko-->
-            </div>
-        </div>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="opc-block-summary" data-bind="blockLoader: isLoading,fadeVisible: opcBlockSummary()">
+    <div class="opc-block-summary-wrapper">
+        <span data-bind="i18n: 'Order Summary'" class="title"></span>
+        <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+
+<div class="opc-block-summary-manage-button-wrapper">
+    <div class="opc-block-summary-manage-button"
+         data-bind="
+        click: manageVisibility,
+        fadeVisible: opcManageSummaryButton(),
+        mageInit: {'collapsible':{'openedState': '_active'}}">
+        <!-- ko i18n: opcManageSummaryButtonTitle() --><!-- /ko -->
+        <strong>
+            <!-- ko i18n: grandTotal() --><!-- /ko -->
+        </strong>
     </div>
 </div>

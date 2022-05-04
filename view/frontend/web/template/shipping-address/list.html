@@ -1,28 +1,18 @@
-<!-- ko if: (customerHasAddresses)-->
-<!-- ko ifnot: (isAmazonAccountLoggedIn)-->
-<div class="fieldset">
+<!-- ko if: (customerHasAddresses && isShippingFormFirst())-->
+<div class="fieldset address-list">
     <div class="field field-select-shipping">
         <div class="control">
             <select class="select" name="shipping_address_id" id="shipping_address_id" data-bind="
                 options: addressOptions,
                 optionsText: addressOptionsText,
-                optionsAfterRender:
-                    function(option, item) {
-                        decorateSelect('shipping_address_id', true);
-                    },
                 value: selectedAddress,
                 optionsValue: function(address){
                     return address.customerAddressId;
                 },
+                afterRender: customerAddressesDecorateSelect('shipping_address_id'),
+                event: {change: onAddressChange(selectedAddress())};
             "></select>
         </div>
     </div>
-    <div class="field">
-        <a
-                data-bind="i18n: 'Log Out', attr: { href: logoutUrl,title: $t('Log Out') }"
-                class="iwd_opc_button active">
-        </a>
-    </div>
 </div>
-<!-- /ko -->
 <!-- /ko -->
