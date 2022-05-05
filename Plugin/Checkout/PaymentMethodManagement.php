@@ -38,7 +38,7 @@ class PaymentMethodManagement
         if ($this->opcHelper->isShowComment()) {
             $comment = $paymentMethod->getExtensionAttributes() === null
                 ? ''
-                : trim($paymentMethod->getExtensionAttributes()->getComment());
+                : trim((string)$paymentMethod->getExtensionAttributes()->getComment());
             $this->checkoutSession->setIwdOpcComment($comment);
         }
     }
