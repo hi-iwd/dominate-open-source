@@ -215,8 +215,7 @@ define( defineArray,
                 self.source.set('params.invalid', false);
 
                 if (!customer.isLoggedIn()) {
-                    if (!login.validateEmail()) {
-                        $("#iwd_opc_login form").validate().element("input[type='email']");
+                    if (!$("#iwd_opc_login form").validate().element("input[type='email']")) {
                         this.stopLoader(100);
                         return false;
                     }

@@ -35,4 +35,9 @@
     <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
         <plugin name="iwd_modified_checkout_layout_processor" type="IWD\Opc\Plugin\Block\LayoutProcessor" sortOrder="1"/>
     </type>
+
+    <type name="PayPal\Braintree\Model\Paypal\Helper\QuoteUpdater">
+        <plugin name="add_extra_param_to_braintree_paypal"
+                type="IWD\Opc\Plugin\Model\PayPal\Helper\QuoteUpdater" sortOrder="10" />
+    </type>
 </config>

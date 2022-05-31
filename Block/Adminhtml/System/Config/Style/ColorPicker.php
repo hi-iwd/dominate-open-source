@@ -11,26 +11,17 @@ class ColorPicker extends Field
         $html = $element->getElementHtml();
         $value = $element->getData('value');
         $html .= '<script type="text/javascript">
-            require(["jquery"], function ($) {
+            require(["jquery","jquery/colorpicker/js/colorpicker"], function ($) {
                 $(document).ready(function (e) {
                     $("#' . $element->getHtmlId() . '").css("background-color","#' . $value . '");
-                    $("#' . $element->getHtmlId() . '").colpick({
-                        layout:"hex",
-                        submit:1,
-                        submitText: "OK",
-                        colorScheme:"dark",
+                    $("#' . $element->getHtmlId() . '").ColorPicker({
                         color: "#' . $value . '",
-                        onChange:function(hsb,hex,rgb,el,bySetColor) {
-                        $(el).css("background-color","#"+hex);
-                            if(!bySetColor) $(el).val(hex);
-                        },
                         onSubmit:function(hsb,hex,rgb,el) {
                             $(el).css("background-color","#"+hex);
-                            $(el).colpickHide();
-                    
+                            $(el).val(hex);
+                            $(el).ColorPickerHide();
+
                         }
-                    }).keyup(function(){
-                        $(this).colpickSetColor(this.value);
                     });
                 });
             });
