@@ -791,11 +791,11 @@ define( defineArray,
                     this.checkoutData.payment.isMultiStepResolution(false);
                 }
 
-                if(this.checkoutData.shippingAddressFromData){
-                    var shippingAddressFromData = setInterval(function () {
-                        if ($('#co-shipping-form input[name="firstname"]').length) {
+                var shippingAddressFromData = setInterval(function () {
+                    if ($('#co-shipping-form input[name="firstname"]').length) {
+                        if(this.checkoutData.shippingAddressFromData) {
                             $.each(this.checkoutData.shippingAddressFromData,function (key,value) {
-                                if(key == 'street'){
+                                if(key == 'street') {
                                     $.each(value,function (number,address) {
                                         if(address && address.length){
                                             if($('#co-shipping-form input[name="street['+number +']"]').length){
@@ -812,8 +812,12 @@ define( defineArray,
 
                             clearInterval(shippingAddressFromData);
                         }
-                    }, 500);
-                }
+                    }
+                }, 500);
+
+                setTimeout(function () {
+                    clearInterval(shippingAddressFromData);
+                },5000)
 
                 if(this.checkoutData.billingAddressFormData){
 

@@ -40,4 +40,14 @@
         <plugin name="add_extra_param_to_braintree_paypal"
                 type="IWD\Opc\Plugin\Model\PayPal\Helper\QuoteUpdater" sortOrder="10" />
     </type>
+
+    <type name="Magento\Quote\Model\GuestCart\GuestCouponManagement">
+        <plugin name="iwd_opc_guest_coupon_management"
+                type="IWD\Opc\Plugin\Model\GuestCart\GuestCouponManagement"/>
+    </type>
+
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="iwd_opc_coupon_management"
+                type="IWD\Opc\Plugin\Model\CouponManagement"/>
+    </type>
 </config>

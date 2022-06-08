@@ -39,7 +39,7 @@ define([
          */
         apply: function () {
             if (this.validate()) {
-                setCouponCodeAction(couponCode(), isApplied);
+                setCouponCodeAction(window.btoa(couponCode()), isApplied);
             }
         },
 
