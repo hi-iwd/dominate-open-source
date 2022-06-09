@@ -195,8 +195,7 @@ define(
                 self.source.set('params.invalid', false);
 
                 if (!customer.isLoggedIn()) {
-                    if (!login.validateEmail()) {
-                        $("#iwd_opc_login form").validate().element("input[type='email']");
+                    if (!$("#iwd_opc_login form").validate().element("input[type='email']")) {
                         this.stopLoader(100);
                         return false;
                     }
@@ -451,12 +450,21 @@ define(
 
             resetBillingAddressForm: function () {
                 let billingAddress = $('#billing-new-address-form');
-                billingAddress.find('input').val('');
+                billingAddress.find('input').val('').trigger('change');
                 billingAddress.find('.control.focus').removeClass('focus');
                 let country_id = billingAddress.find('select[name="country_id"]');
                 let region_id = billingAddress.find('select[name="region_id"]');
+
+                country_id.val('').trigger('change');
+                region_id.val('').trigger('change');
+
                 country_id.selectize({})[0].selectize.clear(true);
                 region_id.selectize({})[0].selectize.clear(true);
+
+                let self = this;
+                self.source.trigger('billingAddress.data.clearError');
+                self.source.trigger('shippingAddress.data.clearError');
+                self.source.set('params.invalid', false);
             },
 
             useShippingAddress: function () {

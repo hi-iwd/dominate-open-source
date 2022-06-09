@@ -9,12 +9,12 @@ use Magento\Framework\Event\ObserverInterface;
 use IWD\Opc\Helper\Data as OpcHelper;
 use Magento\Customer\Model\CustomerFactory;
 use Psr\Log\LoggerInterface;
-use Magento\Newsletter\Model\Subscriber;
+use Magento\Newsletter\Model\SubscriptionManagerInterface as Subscriber;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Encryption\EncryptorInterface as Encryptor;
-use \Magento\Downloadable\Model\Link\PurchasedFactory as PurchasedFactory;
+use Magento\Downloadable\Model\Link\PurchasedFactory as PurchasedFactory;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Downloadable\Observer\SaveDownloadableOrderItemObserver;
 
@@ -192,7 +192,11 @@ class QuoteSubmitSuccess implements ObserverInterface
             $subscribe = $this->checkoutSession->getIwdOpcSubscribe();
             if ($subscribe) {
                 try {
-                    $this->subscriber->subscribe($order->getCustomerEmail());
+                    if ($order->getCustomerIsGuest()) {
+                        $this->subscriber->subscribe($order->getCustomerEmail(),$order->getStoreId());
+                    } else {
+                        $this->subscriber->subscribeCustomer($order->getCustomerId(),$order->getStoreId());
+                    }
                 } catch (\Exception $e) {
                     $this->logger->error($e->getMessage());
                 }
