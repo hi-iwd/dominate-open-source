@@ -255,7 +255,7 @@ class LayoutProcessor
             $postcode['validation']['required-entry'] = true;
             $postcode['config']['template'] = 'IWD_Opc/form/field';
             $postcode['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
-            $postcode['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+            $postcode['config']['additionalClasses'] = 'float-left wd30-66 mr4 postcode';
 
             $jsLayoutResult['components']['checkout']['children']['steps']['children']['shipping-step']
             ['children']['shippingAddress']['children']['billing-address']['children']['form-fields']['children']['postcode'] = $postcode;

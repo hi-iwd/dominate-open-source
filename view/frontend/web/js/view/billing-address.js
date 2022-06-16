@@ -346,7 +346,7 @@ define(
 
                 self.isAddressSameAsShipping.subscribe(function (value) {
                     if (!value) {
-                        $('.co-billing-form select').trigger('change');
+                        //$('.co-billing-form select').trigger('change');
                     }
                 });
 
@@ -441,6 +441,8 @@ define(
                         $('#billing-new-address-form .field').each(function () {
                             if ($(this).find('input').val()) {
                                 $(this).find('.control').addClass('focus');
+                            } else {
+                                $(this).find('.control').removeClass('focus');
                             }
                         });
                         clearInterval(decorateBillingSelect);
@@ -451,20 +453,22 @@ define(
             resetBillingAddressForm: function () {
                 let billingAddress = $('#billing-new-address-form');
                 billingAddress.find('input').val('').trigger('change');
-                billingAddress.find('.control.focus').removeClass('focus');
-                let country_id = billingAddress.find('select[name="country_id"]');
-                let region_id = billingAddress.find('select[name="region_id"]');
+                let country = billingAddress.find('select[name="country_id"]');
+                let region = billingAddress.find('select[name="region_id"]');
 
-                country_id.val('').trigger('change');
-                region_id.val('').trigger('change');
+                let countryVal = country.val();
+                region.val('').trigger('change');
+                country.val('').trigger('change').val(countryVal).trigger('change');
 
-                country_id.selectize({})[0].selectize.clear(true);
-                region_id.selectize({})[0].selectize.clear(true);
+                country.selectize({})[0].selectize.clear(true);
+                region.selectize({})[0].selectize.clear(true);
 
                 let self = this;
                 self.source.trigger('billingAddress.data.clearError');
                 self.source.trigger('shippingAddress.data.clearError');
                 self.source.set('params.invalid', false);
+
+                billingAddress.find('.field').removeClass('_error');
             },
 
             useShippingAddress: function () {

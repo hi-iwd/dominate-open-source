@@ -466,7 +466,7 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
                                                             'placeholder' => false,
                                                             'config' => [
                                                                 'template' => 'IWD_Opc/form/field',
-                                                                'additionalClasses' => 'float-left wd30-66 mr4',
+                                                                'additionalClasses' => 'float-left wd30-66 mr4 postcode',
                                                             ]
                                                         ],
                                                         'telephone' => [
@@ -882,7 +882,7 @@ class UpdateLayoutProcessor implements LayoutProcessorInterface
             $fieldConfig['validation']['required-entry'] = true;
             $fieldConfig['config']['template'] = 'IWD_Opc/form/field';
             $fieldConfig['config']['elementTmpl'] = 'IWD_Opc/form/element/input';
-            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4';
+            $fieldConfig['config']['additionalClasses'] = 'float-left wd30-66 mr4 postcode';
         } else if ($fieldCode === 'telephone') {
             $fieldConfig['label'] = new \Magento\Framework\Phrase('Phone *');
             $fieldConfig['sortOrder'] = '80';
